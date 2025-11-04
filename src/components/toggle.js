@@ -21,12 +21,16 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 30,
     marginTop: 20,
+    marginHorizontal: 5,
     backgroundColor: '#eceff1',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 40, 
+    borderBottomLeftRadius: 20,
   },
   text: {
     fontSize: 20,
-    fontWeight: 'semi-bold',
     flex: 1,
+    fontFamily: 'Orbitron-Regular',
   },
   switch: {
     width: 50,

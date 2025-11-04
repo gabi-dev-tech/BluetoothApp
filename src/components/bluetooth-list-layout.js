@@ -12,7 +12,7 @@ function BluetoothListLayout(props) {
         renderItem={({ item }) => (
           <View style={styles.element}>
             <Image source={iconImage} style={styles.image} />
-            <Text style={styles.list}>{item.name}</Text>
+            <Text style={styles.list} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
             <Image source={iconSetting} style={styles.image} />
           </View>
         )}
@@ -29,19 +29,26 @@ function BluetoothListLayout(props) {
 
 const styles = StyleSheet.create({
   listContainer: {
+    width: '100%',
+    height: 600,
     backgroundColor: '#ebf1f3ff',
     paddingVertical: 20,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40, 
   },
   list: {
     fontSize: 20,
-    fontWeight: 'semi-bold',
     color: '#4a4a4aff',
+    maxWidth: '60%',
+    fontFamily: 'Orbitron-Regular',
   },
   element: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 30,
     gap: 30,
+    marginTop: 20,
   },
   image: {
     width: 30,
@@ -57,7 +64,7 @@ const styles = StyleSheet.create({
   },
   noElementText: {
     fontSize: 20,
-    fontWeight: 'semi-bold',
+    fontFamily: 'Orbitron-Regular',
   },
   imageEmpty: {
     width: 250,

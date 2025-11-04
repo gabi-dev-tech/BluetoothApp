@@ -129,7 +129,10 @@ function App() {
     <View style={styles.container}>
       <Text style={styles.title}>Bluetooth App</Text>
 
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        translucent={false}
+      />
 
       <Toggle isScanning={isScanning} setIsScanning={setIsScanning} />
 
@@ -144,12 +147,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#ebf1f3ff',
-    fontFamily: 'Orbitron-Regular',
+    backgroundColor: '#3528B0',
   },
   title: {
-    fontSize: 48,
-    fontWeight: 'bold',
+    fontSize: 40,
+    fontFamily: 'Orbitron-Bold',
+    color: '#ebf1f3ff',
   },
 });
 
