@@ -82,5 +82,20 @@ adb logcat *:S ReactNative:V ReactNativeJS:V
 
 ```
 
+## Crear APP realice
+
+```sh
+cd android
+./gradlew assembleRelease
+
+```
+
+## Instalar APP realice en Android
+
+```sh
+adb install -r android/app/build/outputs/apk/release/app-release.apk
+
+```
+
 
 

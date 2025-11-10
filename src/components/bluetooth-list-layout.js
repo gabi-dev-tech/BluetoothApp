@@ -1,19 +1,23 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import iconImage from '../assets/images/iconBluetooth.png';
 import iconSetting from '../assets/images/iconSetting.png';
 import iconEmpty from '../assets/images/iconEmpty.png';
 
-function BluetoothListLayout(props) { 
+function BluetoothListLayout(props) {
+  const [changeColorIcon, setChangeColorIcon] = useState(false);
+  
   return (
     <View style={styles.listContainer}>
       <FlatList
         data={props.devices}
         renderItem={({ item }) => (
           <View style={styles.element}>
-            <Image source={iconImage} style={styles.image} />
+            <Image source={iconImage} style={styles.image}  />
             <Text style={styles.list} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
-            <Image source={iconSetting} style={styles.image} />
+            <TouchableOpacity  onPress={() => {props.connectToDevice(item.id); setChangeColorIcon(!changeColorIcon)}} >
+              <Image source={iconSetting} style={[styles.image, {tintColor: changeColorIcon ? 'red' : '#6ab7b7ff'}]} />
+            </TouchableOpacity >
           </View>
         )}
         ListEmptyComponent={() => (
@@ -30,7 +34,7 @@ function BluetoothListLayout(props) {
 const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
-    height: 600,
+    height: '100%',
     backgroundColor: '#ebf1f3ff',
     paddingVertical: 20,
     borderTopLeftRadius: 40,
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
   },
   list: {
     fontSize: 20,
-    color: '#4a4a4aff',
+    color: '#6ab7b7ff',
     maxWidth: '60%',
     fontFamily: 'Orbitron-Regular',
   },
@@ -53,6 +57,7 @@ const styles = StyleSheet.create({
   image: {
     width: 30,
     height: 30,
+    tintColor: '#6ab7b7ff'
   },
   noElementContainer: {
     height: 600,
@@ -65,11 +70,12 @@ const styles = StyleSheet.create({
   noElementText: {
     fontSize: 20,
     fontFamily: 'Orbitron-Regular',
+    color: '#6ab7b7ff',
   },
   imageEmpty: {
     width: 250,
     height: 250,
-    tintColor: '#9e9e9eff',
+    tintColor: '#6ab7b7ff',
   },
 });
 

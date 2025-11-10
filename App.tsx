@@ -13,6 +13,7 @@ import { BleManager, Device } from 'react-native-ble-plx';
 import BluetoothListLayout from './src/components/bluetooth-list-layout';
 import Toggle from './src/components/toggle';
 import Separador from './src/components/separador';
+import ShowAlert from './src/components/alert';
 
 function App() {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -21,7 +22,7 @@ function App() {
   const managerRef = useRef(new BleManager());
   const isDarkMode = useColorScheme() === 'dark';
 
-  // 🧩 2️⃣ Función para iniciar escaneo BLE
+  // 🧩 Función para iniciar escaneo BLE
   const startScan = async () => {
     const manager = managerRef.current;
 
@@ -57,7 +58,7 @@ function App() {
     }, true);
   };
 
-  // 🧩 3️⃣ Función para detener escaneo
+  // 🧩 Función para detener escaneo
   const stopScan = () => {
     const manager = managerRef.current;
     console.log('🛑 Deteniendo escaneo BLE...');
@@ -65,7 +66,21 @@ function App() {
     setDevices([]);
   };
 
-  // 🧩 1️⃣ Pedimos permisos SOLO al inicio
+  // 🧩 Función para conectar con el dispositivo
+  const connectToDeviceById = async (deviceId: string) => {
+    const manager = managerRef.current;
+    try {
+      manager.stopDeviceScan();
+      const connectedDevice = await manager.connectToDevice(deviceId);
+      await connectedDevice.discoverAllServicesAndCharacteristics();
+      console.log(`Conectado a dispositivo con ID: ${deviceId}`);
+      ShowAlert('Conexión exitosa', 'Dispositivo conectado correctamente.');
+    } catch (error) {
+      console.log('Error al conectar:', error);
+    }
+  };
+
+  // 🧩 Pedimos permisos SOLO al inicio
   useEffect(() => {
     const requestPermissions = async () => {
       try {
@@ -109,13 +124,13 @@ function App() {
     requestPermissions();
   }, []);
 
-  // 🧩 4️⃣ Observa los cambios del Toggle
+  // 🧩 Observa los cambios del Toggle
   useEffect(() => {
     if (isScanning) startScan();
     else stopScan();
   }, [isScanning, permissionsGranted]);
 
-  // 🧩 5️⃣ Limpieza total al desmontar la app
+  // 🧩 Limpieza total al desmontar la app
   useEffect(() => {
     const manager = managerRef.current;
     return () => {
@@ -128,20 +143,20 @@ function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bluetooth App</Text>
-
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         translucent={false}
       />
-
       <Toggle isScanning={isScanning} setIsScanning={setIsScanning} />
-
       <Separador />
-
-      <BluetoothListLayout devices={devices} />
+      <BluetoothListLayout
+        devices={devices}
+        connectToDevice={connectToDeviceById}
+      />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -152,7 +167,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontFamily: 'Orbitron-Bold',
-    color: '#ebf1f3ff',
+    color: '#00FEFF',
+    textShadowColor: '#c9f8f8ff',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 30,
+    marginVertical: 20,
   },
 });
 

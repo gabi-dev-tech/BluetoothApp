@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 30,
     marginTop: 20,
-    marginHorizontal: 5,
+    marginHorizontal: 20,
     backgroundColor: '#eceff1',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 40, 
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     flex: 1,
-    fontFamily: 'Orbitron-Regular',
+    fontFamily: 'Orbitron-Bold',
+    color: '#6ab7b7ff',
   },
   switch: {
     width: 50,
